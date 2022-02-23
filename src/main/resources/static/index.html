@@ -167,26 +167,6 @@
     </head>
 
     <body>
-        <script>
-            $.ajax
-            (
-                {
-                    url : '/have', //请求的url
-                    type : 'GET', //以何种方法发送报文
-                    dataType : 'json', //预期的服务器返回的数据类型
-                    success : function (res) //请求成功执行的访求
-                    {
-                        if (res.data == false) // 没有开始时间
-                            window.location.href="./addTime.html";
-                    },
-                    error : function () //请求失败执行的方法
-                    {
-                        alert('请求失败');
-                    }
-                }
-            );
-        </script>
-
         <div class="form">
             <div class="fix"></div>
 
