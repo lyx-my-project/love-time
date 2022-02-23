@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+
+        <title>恋爱记录</title>
+
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <script>
+            $(document).ready
+            (
+                function()
+                {
+                    $(".form").slideDown(500);
+                    $("#landing").addClass("border-btn");
+                    $("#registered").click
+                    (
+                        function()
+                        {
+                            $("#landing").removeClass("border-btn");
+                            $("#landing-content").hide(500);
+                            $(this).addClass("border-btn");
+                            $("#registered-content").show(500);
+
+                        }
+                    );
+                    $("#landing").click
+                    (
+                        function()
+                        {
+                            $("#registered").removeClass("border-btn");
+                            $(this).addClass("border-btn");
+
+                            $("#landing-content").show(500);
+                            $("#registered-content").hide(500);
+                        }
+                    );
+                }
+            );
+        </script>
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                font-family: "微软雅黑";
+            }
+
+            body
+            {
+                background: url(" //blog.mrabit.com/bing/today") no-repeat;
+                background-size: cover;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                -ms-background-size: cover;
+                background-attachment: fixed;
+            }
+
+            .form {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin-left: -185px;
+                margin-top: -210px;
+                height: 420px;
+                width: 340px;
+                font-size: 18px;
+                -webkit-box-shadow: 0px 0px 10px #A6A6A6;
+                background: #fff;
+            }
+
+            .border-btn {
+                border-bottom: 1px solid #ccc;
+            }
+
+            #landing-content {
+                clear: both;
+            }
+
+            .inp {
+                height: 30px;
+                margin: 0 auto;
+                margin-bottom: 30px;
+                width: 200px;
+            }
+
+            .inp>input {
+                text-align: center;
+                height: 30px;
+                width: 200px;
+                margin: 0 auto;
+                transition: all 0.3s ease-in-out;
+            }
+
+            .login {
+                border: 1px solid #A6A6A6;
+                color: black;
+                height: 30px;
+                width: 202px;
+                text-align: center;
+                font-size: 13.333333px;
+                margin-left: 70px;
+                line-height: 30px;
+                margin-top: 30px;
+                transition: all 0.3s ease-in-out;
+                background-color: #41ff8e;
+            }
+
+            .login:hover {
+                background: #c3fa3d;
+                color: black;
+                cursor: pointer;
+            }
+
+            #photo {
+                border-radius: 80px;
+                border: 1px solid #ccc;
+                height: 80px;
+                width: 80px;
+                margin: 0 auto;
+                overflow: hidden;
+                clear: both;
+                margin-top: 30px;
+                margin-bottom: 30px;
+            }
+
+            #photo>img:hover {
+                -webkit-transform: rotateZ(360deg);
+                -moz-transform: rotateZ(360deg);
+                -o-transform: rotateZ(360deg);
+                -ms-transform: rotateZ(360deg);
+                transform: rotateZ(360deg);
+            }
+
+            #photo>img {
+                height: 80px;
+                width: 80px;
+                -webkit-background-size: 220px 220px;
+                border-radius: 60px;
+                -webkit-transition: -webkit-transform 1s linear;
+                -moz-transition: -moz-transform 1s linear;
+                -o-transition: -o-transform 1s linear;
+                -ms-transition: -ms-transform 1s linear;
+            }
+
+            .fix {
+                clear: both;
+            }
+
+            .form{
+                display: none;
+            }
+
+            .inp {
+                text-align: center;
+            }
+
+            #firstStr,#secondStr,#thirdStr
+            {
+                color: blue;
+            }
+        </style>
+    </head>
+
+    <body>
+        <script>
+            $.ajax
+            (
+                {
+                    url : '/have', //请求的url
+                    type : 'GET', //以何种方法发送报文
+                    dataType : 'json', //预期的服务器返回的数据类型
+                    success : function (res) //请求成功执行的访求
+                    {
+                        if (res.data == false) // 没有开始时间
+                            window.location.href="./addTime.html";
+                    },
+                    error : function () //请求失败执行的方法
+                    {
+                        alert('请求失败');
+                    }
+                }
+            );
+        </script>
+
+        <div class="form">
+            <div class="fix"></div>
+
+            <div id="landing-content">
+                <div id="photo"><img src="/pic/title-pic.jpg" /></div>
+
+                <div class="inp"><small>恋爱时间：<b id="firstStr"></b> </small></div>
+                <div class="inp"><small>恋爱时间：<b id="secondStr"></b> </small></div>
+                <div class="inp"><small>恋爱时间：<b id="thirdStr"></b> </small></div>
+
+            </div>
+        </div>
+
+        <script>
+            // 获得持续时间
+            $.ajax
+            (
+                {
+                    url : '/duration', //请求的url
+                    type : 'GET', //以何种方法发送报文
+                    dataType : 'json', //预期的服务器返回的数据类型
+                    success : function (res) //请求成功执行的访求
+                    {
+                        $('#firstStr').text(res.data.firstStr);
+                        $('#secondStr').text(res.data.secondStr);
+                        $('#thirdStr').text(res.data.thirdStr);
+                    },
+                    error : function () //请求失败执行的方法
+                    {
+                        alert('请求失败');
+                    }
+                }
+            );
+        </script>
+    </body>
+
+</html>
